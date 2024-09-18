@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location and Radius Input</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 30px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            text-align: center;
+            color: #666;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e7f3e7;
+            border-left: 5px solid #4CAF50;
+            border-radius: 4px;
+            color: #2e7d32;
+        }
+        .error {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ffdddd;
+            border-left: 5px solid #f44336;
+            border-radius: 4px;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Location Assessment</h1>
+        <p>Enter a location in the format longitude, latitude and a radius in meters.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="input-field">
+                <label for="location">Location (longitude, latitude):</label>
+                <input type="text" name="location" id="location" placeholder="e.g., 34.0522, -118.2437">
+            </div>
+            <div class="input-field">
+                <label for="radius">Radius (meters):</label>
+                <input type="number" name="radius" id="radius" placeholder="e.g., 1000">
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if success %}
+            <div class="result">
+                <h2>Input Details</h2>
+                <p>Longitude: {{ longitude }}</p>
+                <p>Latitude: {{ latitude }}</p>
+                <p>Radius: {{ radius }} meters</p>
+            </div>
+        {% elif error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
