@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Location Surroundings</title>
+</head>
+<body>
+    <h1>Location Surroundings</h1>
+
+    <h2>Source Location</h2>
+    <p>Latitude: {{ source_location.Source_lat }}</p>
+    <p>Longitude: {{ source_location.Source_lon }}</p>
+
+    <!-- Table for Competitors -->
+    <h2>Competitors</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Address</th>
+                <th>Coordinates</th>
+                <th>Type</th>
+                <th>Rating</th>
+                <th>User Ratings</th>
+                <th>Travel Distance</th>
+                <th>Travel Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for competition in competitors %}
+            <tr>
+                <td>{{ competition.name }}</td>
+                <td>{{ competition.status }}</td>
+                <td>{{ competition.address }}</td>
+                <td>{{ competition.coordinates }}</td>
+                <td>{{ competition.types }}</td>
+                <td>{{ competition.rating }}</td>
+                <td>{{ competition.user_rating }}</td>
+                <td>{{ competition.Travel_Distance }} km</td>
+                <td>{{ competition.Travel_Time }} mins</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No nearby competitors found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
