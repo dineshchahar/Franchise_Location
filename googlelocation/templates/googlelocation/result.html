@@ -1,50 +1,243 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location Surroundings</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Adding Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Customizing Tailwind to include the selected font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-<body>
-    <h1>Location Surroundings</h1>
+<body class="bg-gray-100 font-sans leading-relaxed text-gray-800">
 
-    <h2>Source Location</h2>
-    <p>Latitude: {{ source_location.Source_lat }}</p>
-    <p>Longitude: {{ source_location.Source_lon }}</p>
+    <div class="container mx-auto px-6 py-10">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900 tracking-wide">Location Surroundings</h1>
+        </div>
 
-    <!-- Table for Competitors -->
-    <h2>Competitors</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Address</th>
-                <th>Coordinates</th>
-                <th>Type</th>
-                <th>Rating</th>
-                <th>User Ratings</th>
-                <th>Travel Distance</th>
-                <th>Travel Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for competition in competitors %}
-            <tr>
-                <td>{{ competition.name }}</td>
-                <td>{{ competition.status }}</td>
-                <td>{{ competition.address }}</td>
-                <td>{{ competition.coordinates }}</td>
-                <td>{{ competition.types }}</td>
-                <td>{{ competition.rating }}</td>
-                <td>{{ competition.user_rating }}</td>
-                <td>{{ competition.Travel_Distance }} km</td>
-                <td>{{ competition.Travel_Time }} mins</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="8">No nearby competitors found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-4">Source Location</h2>
+            <p class="text-lg text-gray-600">Latitude: {{ sourcelocation.lat }}</p>
+            <p class="text-lg text-gray-600">Longitude: {{ sourcelocation.long }}</p>
+        </div>
+
+        <!-- Competitors Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">Competitors</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for competition in competitors %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ competition.name }}</td>
+                            <td class="py-3 px-6">{{ competition.address }}</td>
+                            <td class="py-3 px-6">{{ competition.rating }}</td>
+                            <td class="py-3 px-6">{{ competition.user_rating }}</td>
+                            <td class="py-3 px-6">{{ competition.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ competition.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby competitors found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Supermarkets Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">SuperMarkets</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for supermarket in supermarkets %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ supermarket.name }}</td>
+                            <td class="py-3 px-6">{{ supermarket.address }}</td>
+                            <td class="py-3 px-6">{{ supermarket.rating }}</td>
+                            <td class="py-3 px-6">{{ supermarket.user_rating }}</td>
+                            <td class="py-3 px-6">{{ supermarket.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ supermarket.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby supermarkets found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Public Services Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">Public Services</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-red-500 to-pink-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for publicservice in publicservices %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ publicservice.name }}</td>
+                            <td class="py-3 px-6">{{ publicservice.address }}</td>
+                            <td class="py-3 px-6">{{ publicservice.rating }}</td>
+                            <td class="py-3 px-6">{{ publicservice.user_rating }}</td>
+                            <td class="py-3 px-6">{{ publicservice.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ publicservice.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby public services found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Restaurants Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">Restaurants</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for restaurant in restaurants %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ restaurant.name }}</td>
+                            <td class="py-3 px-6">{{ restaurant.address }}</td>
+                            <td class="py-3 px-6">{{ restaurant.rating }}</td>
+                            <td class="py-3 px-6">{{ restaurant.user_rating }}</td>
+                            <td class="py-3 px-6">{{ restaurant.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ restaurant.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby restaurants found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Retails Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">Retails</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for retail in retails %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ retail.name }}</td>
+                            <td class="py-3 px-6">{{ retail.address }}</td>
+                            <td class="py-3 px-6">{{ retail.rating }}</td>
+                            <td class="py-3 px-6">{{ retail.user_rating }}</td>
+                            <td class="py-3 px-6">{{ retail.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ retail.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby retails found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Apartments Table -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10">
+            <h2 class="text-3xl font-semibold text-gray-700 mb-6">Apartments</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr class="w-full bg-gradient-to-r from-teal-500 to-blue-600 text-white">
+                            <th class="py-3 px-6 text-left text-lg">Name</th>
+                            <th class="py-3 px-6 text-left text-lg">Address</th>
+                            <th class="py-3 px-6 text-left text-lg">Rating</th>
+                            <th class="py-3 px-6 text-left text-lg">User Ratings</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Distance</th>
+                            <th class="py-3 px-6 text-left text-lg">Travel Time</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        {% for apartment in apartments %}
+                        <tr class="border-b hover:bg-gray-100 transition duration-200">
+                            <td class="py-3 px-6">{{ apartment.name }}</td>
+                            <td class="py-3 px-6">{{ apartment.address }}</td>
+                            <td class="py-3 px-6">{{ apartment.rating }}</td>
+                            <td class="py-3 px-6">{{ apartment.user_rating }}</td>
+                            <td class="py-3 px-6">{{ apartment.Travel_Distance }}</td>
+                            <td class="py-3 px-6">{{ apartment.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby apartments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
