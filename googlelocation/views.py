@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse 
 from .forms import LocationForm
-from .models import SourceLocation, SuperMarket,PublicServices,Competitor,Residentials,Retails,Restaurants,Hotels,Tourist,Education
+from .models import SourceLocation, SuperMarket,PublicServices,Competitor,Residentials,Retails,Restaurants,Hotels,Tourist,Education,Corporate
 import json
 from django import views
 import googlemaps
@@ -24,7 +24,7 @@ def home(request):
             Retails.objects.all().delete()
             Restaurants.objects.all().delete()
             Hotels.objects.all().delete()
-            Residentials.objects.all().delete()
+            Corporate.objects.all().delete()
             Tourist.objects.all().delete()
             Education.objects.all().delete()
             
@@ -73,6 +73,46 @@ def home(request):
                             source_location = source_location
                         )
                 
+             # restaurants Database
+            exclude_competitor = {'KFC','Burger King',"McDonald's",'Pizza Hut',"Domino's"}
+            nearby_restaurant = []
+            restaurants = ['Restaurant','cafe','Bakery']
+            for restaurant in restaurants:
+                places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = restaurant)
+                if places_result['status'] == 'OK':
+                    nearby_restaurant.extend(places_result.get('results', []))
+                else:
+                    continue
+            for place in nearby_restaurant:
+                if place['name'] not in exclude_competitor and (place.get('user_ratings_total',0) > 200) and (place.get('rating',0)>3): 
+                    origin = (latitude,longitude)
+                    coordinate = (place['geometry']['location']['lat'],place['geometry']['location']['lng'])
+                    if (place.get('user_ratings_total',0) > 100) and (place.get('rating',0)>0):
+                        result = gmaps.distance_matrix(origins=[origin], destinations=[coordinate], mode='driving', departure_time='now')
+                        if result['status']=='OK':
+                            element = result['rows'][0]['elements'][0]
+                            if element['status'] == 'OK':
+                                distance = element['distance']['text']
+                                duration = element['duration']['text']
+                            else:
+                                distance = "cann't find"
+                                duration = "cann't find"
+                        if not Restaurants.objects.filter(coordinates=coordinate).exists():
+                            Restaurants.objects.create(
+                                name = place.get('name','No Name'),
+                            status = place.get('business_status','default'),
+                            address = place.get('vicinity','unknown'),
+                            coordinates = coordinate,
+                            types = place.get('types',[]),
+                            rating = place.get('rating',0),
+                            user_rating = place.get('user_ratings_total',0),
+                            Travel_Distance = distance,
+                            Travel_Time = duration,
+                            source_location = source_location
+                            )
+                    else:
+                        result['status'] == 'Error'
+
 
             # supermarket database
             nearby_supermarket = []    
@@ -112,6 +152,46 @@ def home(request):
                         )
                 else:
                     result['status'] == 'Error'
+
+
+             # retails database
+            nearby_retails = [] 
+            retails = ['retail shop','store','eletronic-store','salon'] 
+            for retail in retails:
+                places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = retail)
+                if places_result['status'] == 'OK':
+                    nearby_retails.extend(places_result.get('results', []))
+                else:
+                    continue
+            for place in nearby_retails:
+                origin = (latitude,longitude)
+                coordinate = (place['geometry']['location']['lat'],place['geometry']['location']['lng'])
+                if (place.get('user_ratings_total',0) > 200) and (place.get('rating',0)>3):
+                    result = gmaps.distance_matrix(origins=[origin], destinations=[coordinate], mode='driving', departure_time='now')
+                    if result['status']=='OK':
+                        element = result['rows'][0]['elements'][0]
+                        if element['status'] == 'OK':
+                            distance = element['distance']['text']
+                            duration = element['duration']['text']
+                        else:
+                            distance = "cann't find"
+                            duration = "cann't find"
+                    if not Retails.objects.filter(coordinates=coordinate).exists() and not SuperMarket.objects.filter(coordinates = coordinate).exists():
+                        Retails.objects.create(
+                            name = place.get('name','No Name'),
+                            status = place.get('business_status','default'),
+                            address = place.get('vicinity','unknown'),
+                            coordinates = coordinate,
+                            types = place.get('types',[]),
+                            rating = place.get('rating',0),
+                            user_rating = place.get('user_ratings_total',0),
+                            Travel_Distance = distance,
+                            Travel_Time = duration,
+                            source_location = source_location
+                        )
+                else:
+                    result['status'] == 'Error'
+
 
             #Tourist
 
@@ -158,7 +238,7 @@ def home(request):
             # Education Database
 
             nearby_education = []
-            educations = ['School','Institue','college','University','Inter college']
+            educations = ['School','Institute','college','University','Inter college','IIT']
 
             for education in educations:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = education)
@@ -197,7 +277,7 @@ def home(request):
             
             # PublicServices database 
             nearby_publicservices = []  
-            publicservices = ['Bus Stand','Railway station','Metro','transit-station','Medical']
+            publicservices = ['Bus Stand','Railway station','Metro','transit-station']
             
             for public in publicservices:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = public)
@@ -218,7 +298,7 @@ def home(request):
                         else:
                             distance = "cann't find"
                             duration = "cann't find"
-                    if not PublicServices.objects.filter(coordinates=coordinate).exists():
+                    if not PublicServices.objects.filter(coordinates=coordinate).exists() and not Education.objects.filter(coordinates = coordinate).exists():
                         PublicServices.objects.create(
                             name = place.get('name','No Name'),
                             status = place.get('business_status','default'),
@@ -233,6 +313,47 @@ def home(request):
                         )
                 else:
                     result['status'] == 'Error'
+            
+            # corporate database
+
+            nearby_corporates = []  
+            corporates = ['Business','corporate','cyber park','cyber hub','IT office','office']
+            
+            for corp in corporates:
+                places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = corp)
+                if places_result['status'] == 'OK':
+                    nearby_corporates.extend(places_result.get('results', []))
+                else:
+                    continue
+            for place in nearby_corporates:
+                origin = (latitude,longitude)
+                coordinate = (place['geometry']['location']['lat'],place['geometry']['location']['lng'])
+                if (place.get('user_ratings_total',0) > 200) and (place.get('rating',0)>3):
+                    result = gmaps.distance_matrix(origins=[origin], destinations=[coordinate], mode='driving', departure_time='now')
+                    if result['status']=='OK':
+                        element = result['rows'][0]['elements'][0]
+                        if element['status'] == 'OK':
+                            distance = element['distance']['text']
+                            duration = element['duration']['text']
+                        else:
+                            distance = "cann't find"
+                            duration = "cann't find"
+                    if not Corporate.objects.filter(coordinates=coordinate).exists() and not PublicServices.objects.filter(coordinates = coordinate).exists() and not Retails.objects.filter(coordinates = coordinate).exists() and not SuperMarket.objects.filter(coordinates = coordinate).exists():
+                        Corporate.objects.create(
+                            name = place.get('name','No Name'),
+                            status = place.get('business_status','default'),
+                            address = place.get('vicinity','unknown'),
+                            coordinates = coordinate,
+                            types = place.get('types',[]),
+                            rating = place.get('rating',0),
+                            user_rating = place.get('user_ratings_total',0),
+                            Travel_Distance = distance,
+                            Travel_Time = duration,
+                            source_location = source_location
+                        )
+                else:
+                    result['status'] == 'Error'
+
             
             
             # Hotels database 
@@ -274,8 +395,6 @@ def home(request):
                 else:
                     result['status'] == 'Error' 
 
-           
-           
             #Residential database
             nearby_residentials = [] 
             residentials = ['Appartments','Housing Society','Guest House','flats'] 
@@ -313,89 +432,7 @@ def home(request):
                         )
                     else:
                         result['status'] == 'Error'
-            
-            
-            
-            # retails database
-            nearby_retails = [] 
-            retails = ['retail shop','store','eletronic-store','salon'] 
-            for retail in retails:
-                places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = retail)
-                if places_result['status'] == 'OK':
-                    nearby_retails.extend(places_result.get('results', []))
-                else:
-                    continue
-            for place in nearby_retails:
-                origin = (latitude,longitude)
-                coordinate = (place['geometry']['location']['lat'],place['geometry']['location']['lng'])
-                if (place.get('user_ratings_total',0) > 200) and (place.get('rating',0)>3):
-                    result = gmaps.distance_matrix(origins=[origin], destinations=[coordinate], mode='driving', departure_time='now')
-                    if result['status']=='OK':
-                        element = result['rows'][0]['elements'][0]
-                        if element['status'] == 'OK':
-                            distance = element['distance']['text']
-                            duration = element['duration']['text']
-                        else:
-                            distance = "cann't find"
-                            duration = "cann't find"
-                    if not Retails.objects.filter(coordinates=coordinate).exists() and not SuperMarket.objects.filter(coordinates = coordinate).exists():
-                        Retails.objects.create(
-                            name = place.get('name','No Name'),
-                            status = place.get('business_status','default'),
-                            address = place.get('vicinity','unknown'),
-                            coordinates = coordinate,
-                            types = place.get('types',[]),
-                            rating = place.get('rating',0),
-                            user_rating = place.get('user_ratings_total',0),
-                            Travel_Distance = distance,
-                            Travel_Time = duration,
-                            source_location = source_location
-                        )
-                else:
-                    result['status'] == 'Error'
-            
-            
-            
-            # restaurants Database
-            exclude_competitor = {'KFC','Burger King',"McDonald's",'Pizza Hut',"Domino's"}
-            nearby_restaurant = []
-            restaurants = ['Restaurant','cafe','Bakery']
-            for restaurant in restaurants:
-                places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = restaurant)
-                if places_result['status'] == 'OK':
-                    nearby_restaurant.extend(places_result.get('results', []))
-                else:
-                    continue
-            for place in nearby_restaurant:
-                if place['name'] not in exclude_competitor and (place.get('user_ratings_total',0) > 200) and (place.get('rating',0)>3): 
-                    origin = (latitude,longitude)
-                    coordinate = (place['geometry']['location']['lat'],place['geometry']['location']['lng'])
-                    if (place.get('user_ratings_total',0) > 100) and (place.get('rating',0)>0):
-                        result = gmaps.distance_matrix(origins=[origin], destinations=[coordinate], mode='driving', departure_time='now')
-                        if result['status']=='OK':
-                            element = result['rows'][0]['elements'][0]
-                            if element['status'] == 'OK':
-                                distance = element['distance']['text']
-                                duration = element['duration']['text']
-                            else:
-                                distance = "cann't find"
-                                duration = "cann't find"
-                        if not Restaurants.objects.filter(coordinates=coordinate).exists():
-                            Restaurants.objects.create(
-                                name = place.get('name','No Name'),
-                            status = place.get('business_status','default'),
-                            address = place.get('vicinity','unknown'),
-                            coordinates = coordinate,
-                            types = place.get('types',[]),
-                            rating = place.get('rating',0),
-                            user_rating = place.get('user_ratings_total',0),
-                            Travel_Distance = distance,
-                            Travel_Time = duration,
-                            source_location = source_location
-                            )
-                    else:
-                        result['status'] == 'Error'
-            return redirect('result')    
+            return redirect('result')
     else:
         form = LocationForm()
     return render(request, 'googlelocation/home.html',{'form':form})
@@ -408,8 +445,9 @@ def result(request):
     retails = Retails.objects.distinct()
     restaurants = Restaurants.objects.distinct()
     hotels = Hotels.objects.distinct()
-    education = Education.objects.distinct()
-    tourist = Tourist.objects.distinct()
+    educations = Education.objects.distinct()
+    tourists = Tourist.objects.distinct()
+    corporates = Corporate.objects.distinct()
     competitors_json = json.dumps(list(competitors.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
     supermarkets_json = json.dumps(list(supermarkets.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
     publicservices_json = json.dumps(list(publicservices.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
@@ -417,8 +455,9 @@ def result(request):
     retails_json = json.dumps(list(retails.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
     restaurants_json = json.dumps(list(restaurants.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
     hotels_json = json.dumps(list(hotels.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
-    education_json = json.dumps(list(education.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
-    tourist_json = json.dumps(list(tourist.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
+    education_json = json.dumps(list(educations.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
+    tourist_json = json.dumps(list(tourists.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
+    corporate_json = json.dumps(list(corporates.values('name', 'coordinates', 'rating', 'Travel_Distance', 'Travel_Time')))
     context = {
         'sourcelocation':sourcelocation, #done
         'competitors':competitors,       #done
@@ -427,9 +466,10 @@ def result(request):
         'restaurants': restaurants,      #done
         'residentials': residentials,    #done
         'supermarkets': supermarkets,    #done
-        'education':education,           #done
+        'educations':educations,           #done
         'hotels':hotels,                 #done
-        'tourist':tourist,               #done
+        'tourists':tourists,               #done
+        'corporates':corporates,
         'competitors_json': mark_safe(competitors_json),
         'supermarkets_json':mark_safe(supermarkets_json),
         'publicservices_json':mark_safe(publicservices_json),
@@ -437,8 +477,8 @@ def result(request):
         'retails_json':mark_safe(retails_json),
         'restaurants_json':mark_safe(restaurants_json),
         'hotels_json':mark_safe(hotels_json),
-        'education_json':mark_safe(education_json),
-        'tourist_json':mark_safe(tourist_json)
+        'educations_json':mark_safe(education_json),
+        'tourists_json':mark_safe(tourist_json),
+        'corporates_json':mark_safe(corporate_json)
     }
-    print(type(competitors_json))
     return render(request, 'googlelocation/result.html', context)

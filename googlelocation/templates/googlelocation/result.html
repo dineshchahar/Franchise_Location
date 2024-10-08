@@ -140,14 +140,34 @@
                     <input type="checkbox" id="retailsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
                 </div>
                 <div class="flex items-center">
-                    <label for="apartmentsToggle" class="mr-4 text-lg text-gray-600 font-semibold">Apartments (Pink)</label>
-                    <input type="checkbox" id="apartmentsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
+                    <label for="residentialsToggle" class="mr-4 text-lg text-gray-600 font-semibold">Residentials (White)</label>
+                    <input type="checkbox" id="residentialsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
                 </div>
+                <div class="flex items-center">
+                    <label for="educationsToggle" class="mr-4 text-lg text-gray-600 font-semibold">Educational Institutes (Black)</label>
+                    <input type="checkbox" id="educationsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
+                </div>
+                <div class="flex items-center">
+                    <label for="touristsToggle" class="mr-4 text-lg text-gray-600 font-semibold">Tourist Places (Grey)</label>
+                    <input type="checkbox" id="touristsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
+                </div>
+                <div class="flex items-center">
+                    <label for="corporatesToggle" class="mr-4 text-lg text-gray-600 font-semibold">Corporate Offices (Orange)</label>
+                    <input type="checkbox" id="corporatesToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
+                </div>
+                <div class="flex items-center">
+                    <label for="hotelsToggle" class="mr-4 text-lg text-gray-600 font-semibold">Hotels (White)</label>
+                    <input type="checkbox" id="hotelsToggle" class="toggle-checkbox w-10 h-6 bg-gray-300 rounded-full">
+                </div>
+
+                
             </div>
 
             <!-- Google Maps -->
             <div id="map" class="w-full h-96 border-2 border-gray-300"></div>
         </div>
+
+        <!-- Category summary table -->
         <div>
             <table class="w-full text-left">
                 <thead class="bg-gradient-to-r from-gray-500 to-gray-600 text-white">
@@ -193,10 +213,14 @@
                         <td>Tourist Places</td>
                         <td id="touristCount">0</td>
                     </tr>
+                    <tr>
+                        <td>Corporate Offices</td>
+                        <td id="corporateCount">0</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        
+
         <!-- Competitors Table -->
         <div class="bg-white rounded-xl shadow-lg p-8 mb-10 transition-all hover:shadow-2xl">
             <h2 class="text-3xl font-semibold text-gray-800 mb-6">Competitors</h2>
@@ -205,7 +229,6 @@
                     <thead class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
                         <tr>
                             <th>Name</th>
-                            <!-- <th>Address</th> -->
                             <th>Rating</th>
                             <th>User Ratings</th>
                             <th>Travel Distance</th>
@@ -220,7 +243,6 @@
                         {% for competition in competitors %}
                         <tr>
                             <td>{{ competition.name }}</td>
-                            <!-- <td class="address-column">{{ competition.address }}</td> -->
                             <td>{{ competition.rating }}</td>
                             <td>{{ competition.user_rating }}</td>
                             <td>{{ competition.Travel_Distance }}</td>
@@ -283,7 +305,6 @@
                     <thead class="bg-gradient-to-r from-red-500 to-pink-600 text-white">
                         <tr>
                             <th>Name</th>
-                            <!-- <th>Address</th> -->
                             <th>Rating</th>
                             <th>User Ratings</th>
                             <th>Travel Distance</th>
@@ -298,7 +319,6 @@
                         {% for publicservice in publicservices %}
                         <tr>
                             <td>{{ publicservice.name }}</td>
-                            <!-- <td class="address-column">{{ publicservice.address }}</td> -->
                             <td>{{ publicservice.rating }}</td>
                             <td>{{ publicservice.user_rating }}</td>
                             <td>{{ publicservice.Travel_Distance }}</td>
@@ -322,7 +342,7 @@
                     <thead class="bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
                         <tr>
                             <th>Name</th>
-                            <!-- <th>Address</th> -->
+                  
                             <th>Rating</th>
                             <th>User Ratings</th>
                             <th>Travel Distance</th>
@@ -337,7 +357,6 @@
                         {% for restaurant in restaurants %}
                         <tr>
                             <td>{{ restaurant.name }}</td>
-                            <!-- <td class="address-column">{{ restaurant.address }}</td> -->
                             <td>{{ restaurant.rating }}</td>
                             <td>{{ restaurant.user_rating }}</td>
                             <td>{{ restaurant.Travel_Distance }}</td>
@@ -361,7 +380,6 @@
                     <thead class="bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
                         <tr>
                             <th>Name</th>
-                            <!-- <th>Address</th> -->
                             <th>Rating</th>
                             <th>User Ratings</th>
                             <th>Travel Distance</th>
@@ -376,7 +394,6 @@
                         {% for retail in retails %}
                         <tr>
                             <td>{{ retail.name }}</td>
-                            <!-- <td class="address-column">{{ retail.address }}</td> -->
                             <td>{{ retail.rating }}</td>
                             <td>{{ retail.user_rating }}</td>
                             <td>{{ retail.Travel_Distance }}</td>
@@ -400,7 +417,6 @@
                     <thead class="bg-gradient-to-r from-pink-500 to-purple-600 text-white">
                         <tr>
                             <th>Name</th>
-                            <!-- <th>Address</th> -->
                             <th>Rating</th>
                             <th>User Ratings</th>
                             <th>Travel Distance</th>
@@ -415,7 +431,6 @@
                         {% for resident in residentials %}
                         <tr>
                             <td>{{ resident.name }}</td>
-                            <!-- <td class="address-column">{{ apartment.address }}</td> -->
                             <td>{{ resident.rating }}</td>
                             <td>{{ resident.user_rating }}</td>
                             <td>{{ resident.Travel_Distance }}</td>
@@ -491,7 +506,7 @@
             <div class="scrollable-table-container">
                 <table>
                     <tbody class="text-gray-700">
-                        {% for edu in education %}
+                        {% for edu in educations %}
                         <tr>
                             <td>{{ edu.name }}</td>
                             <!-- <td class="address-column">{{ apartment.address }}</td> -->
@@ -531,7 +546,7 @@
             <div class="scrollable-table-container">
                 <table>
                     <tbody class="text-gray-700">
-                        {% for tour in tourist %}
+                        {% for tour in tourists %}
                         <tr>
                             <td>{{ tour.name }}</td>
                             <!-- <td class="address-column">{{ apartment.address }}</td> -->
@@ -551,71 +566,113 @@
         </div>
 
 
+        <!-- corporate table -->
+
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-10 transition-all hover:shadow-2xl">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Corporate Offices</h2>
+            <div>
+                <table>
+                    <thead class="bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+                        <tr>
+                            <th>Name</th>
+                            <!-- <th>Address</th> -->
+                            <th>Rating</th>
+                            <th>User Ratings</th>
+                            <th>Travel Distance</th>
+                            <th>Travel Time</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="scrollable-table-container">
+                <table>
+                    <tbody class="text-gray-700">
+                        {% for corp in corporates %}
+                        <tr>
+                            <td>{{ corp.name }}</td>
+                            <!-- <td class="address-column">{{ apartment.address }}</td> -->
+                            <td>{{ corp.rating }}</td>
+                            <td>{{ corp.user_rating }}</td>
+                            <td>{{ corp.Travel_Distance }}</td>
+                            <td>{{ corp.Travel_Time }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="py-5 text-center text-gray-500">No nearby Corporate office found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
     </div>
 
     <!-- Google Maps API -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNJ0iv-Why9tmFmkTZrIVPp_B_qMZYQpg&libraries=places"></script>
-    <script>
-        let map, trafficLayer;
-        let markers = {
-            competitors: [],
-            supermarkets: [],
-            publicServices: [],
-            restaurants: [],
-            retails: [],
-            residentials: [],
-            tourist: [],
-            educations: [],
-            hotels: []
+<script>
+    let map, trafficLayer;
+    let markers = {
+        competitors: [],
+        supermarkets: [],
+        publicServices: [],
+        restaurants: [],
+        retails: [],
+        residentials: [],
+        tourists: [],
+        educations: [],
+        hotels: [],
+        corporates: []
+    };
+
+    function initializeMap(center) {
+        const mapOptions = {
+            center: center,
+            zoom: 15
         };
 
-        function initializeMap(center) {
-            const mapOptions = {
-                center: center,
-                zoom: 16
-            };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        const sourceMarker = new google.maps.Marker({
+            position: center,
+            map: map,
+            title: 'Source Location',
+            label: 'S'
+        });
 
-            const sourceMarker = new google.maps.Marker({
-                position: center,
-                map: map,
-                title: 'Source Location',
-                label: 'S'
-            });
+        trafficLayer = new google.maps.TrafficLayer();
+    }
 
-            trafficLayer = new google.maps.TrafficLayer();
+    function toggleTraffic(showTraffic) {
+        if (showTraffic) {
+            trafficLayer.setMap(map);
+        } else {
+            trafficLayer.setMap(null);
         }
+    }
 
-        function toggleTraffic(showTraffic) {
-            if (showTraffic) {
-                trafficLayer.setMap(map);
-            } else {
-                trafficLayer.setMap(null);
-            }
-        }
+    function addMarker(map, lat, lng, title, travelDistance, travelTime, markerColor, category) {
+        const marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map,
+            title: `${title} - Distance: ${travelDistance}, Time: ${travelTime}`,
+            icon: `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_${markerColor}.png`
+        });
 
-        function addMarker(map, lat, lng, title, travelDistance, travelTime, markerColor, category) {
-            const marker = new google.maps.Marker({
-                position: { lat: lat, lng: lng },
-                map: map,
-                title: `${title} - Distance: ${travelDistance}, Time: ${travelTime}`,
-                icon: `http://maps.google.com/mapfiles/ms/icons/${markerColor}-dot.png`
-            });
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<div><strong>${title}</strong><br>Travel Time: ${travelTime}<br>Travel Distance: ${travelDistance}</div>`
+        });
 
-            const infoWindow = new google.maps.InfoWindow({
-                content: `<div><strong>${title}</strong><br>Travel Time: ${travelTime}<br>Travel Distance: ${travelDistance}</div>`
-            });
+        marker.addListener('click', function () {
+            infoWindow.open(map, marker);
+        });
 
-            marker.addListener('click', function () {
-                infoWindow.open(map, marker);
-            });
+        markers[category].push(marker); // Store marker for later toggling
+    }
 
-            markers[category].push(marker); // Store marker for later toggling
-        }
-
-        function loadMarkers(data, markerColor, category) {
+    function loadMarkers(data, markerColor, category) {
+        if (data && data.length > 0) {
             data.forEach(function (location) {
                 const coordinatesStr = location.coordinates.replace('(', '').replace(')', '');
                 const coordinatesArr = coordinatesStr.split(',');
@@ -626,80 +683,104 @@
                 addMarker(map, lat, lng, location.name, location.Travel_Distance, location.Travel_Time, markerColor, category);
             });
         }
+    }
 
-        function toggleCategoryMarkers(category, showMarkers) {
-            markers[category].forEach(marker => {
-                marker.setMap(showMarkers ? map : null);
-            });
-        }
-
-        document.getElementById('trafficToggle').addEventListener('change', function () {
-            toggleTraffic(this.checked);
+    function toggleCategoryMarkers(category, showMarkers) {
+        markers[category].forEach(marker => {
+            marker.setMap(showMarkers ? map : null);
         });
+    }
 
-        document.getElementById('competitorsToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('competitors', this.checked);
-        });
+    // Event listeners for toggles
+    document.getElementById('trafficToggle').addEventListener('change', function () {
+        toggleTraffic(this.checked);
+    });
 
-        document.getElementById('supermarketsToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('supermarkets', this.checked);
-        });
+    document.getElementById('competitorsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('competitors', this.checked);
+    });
 
-        document.getElementById('publicServicesToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('publicServices', this.checked);
-        });
+    document.getElementById('supermarketsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('supermarkets', this.checked);
+    });
 
-        document.getElementById('restaurantsToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('restaurants', this.checked);
-        });
+    document.getElementById('publicServicesToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('publicServices', this.checked);
+    });
 
-        document.getElementById('retailsToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('retails', this.checked);
-        });
+    document.getElementById('restaurantsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('restaurants', this.checked);
+    });
 
-        document.getElementById('apartmentsToggle').addEventListener('change', function () {
-            toggleCategoryMarkers('apartments', this.checked);
-        });
+    document.getElementById('retailsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('retails', this.checked);
+    });
 
-        // Example source location initialization
-        const sourceLat = parseFloat("{{ sourcelocation.0.Source_lat|floatformat:'6' }}");
-        const sourceLng = parseFloat("{{ sourcelocation.0.Source_lon|floatformat:'6' }}");
-        const sourceCenter = { lat: sourceLat, lng: sourceLng };
+    document.getElementById('residentialsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('residentials', this.checked);
+    });
 
-        // Initialize the map
-        initializeMap(sourceCenter);
+    document.getElementById('educationsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('educations', this.checked);
+    });
 
-        // Load data from different categories with unique colors
-        const competitors = {{ competitors_json|safe }};
-        const supermarkets = {{ supermarkets_json|safe }};
-        const publicServices = {{ publicservices_json|safe }};
-        const restaurants = {{ restaurants_json|safe }};
-        const retails = {{ retails_json|safe }};
-        const residentials = {{ residentials_json|safe }};
-        const hotels = {{ hotels_json|safe }};
-        const educations = {{ education_json|safe }};
-        const tourist = {{ tourist_json|safe }};
+    document.getElementById('touristsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('tourists', this.checked);
+    });
 
-        document.getElementById('competitorsCount').textContent = competitors.length;
-        document.getElementById('publicServicesCount').textContent = publicServices.length;
-        document.getElementById('restaurantsCount').textContent = restaurants.length;
-        document.getElementById('residentialsCount').textContent = residentials.length;
-        document.getElementById('mallsCount').textContent = supermarkets.length;
-        document.getElementById('retailShopsCount').textContent = retails.length;
-        document.getElementById('hotelsCount').textContent = hotels.length;
-        document.getElementById('touristCount').textContent = tourist.length;
-        
-        // Preload all markers but keep them hidden until toggled on
-        loadMarkers(competitors, 'blue', 'competitors');
-        loadMarkers(supermarkets, 'green', 'supermarkets');
-        loadMarkers(publicServices, 'red', 'publicServices');
-        loadMarkers(restaurants, 'yellow', 'restaurants');
-        loadMarkers(retails, 'purple', 'retails');
-        loadMarkers(residentials, 'pink', 'residentials');
-        
-    </script>
+    document.getElementById('corporatesToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('corporates', this.checked);
+    });
+
+    document.getElementById('hotelsToggle').addEventListener('change', function () {
+        toggleCategoryMarkers('hotels', this.checked);
+    });
+
+    // Example source location initialization
+    const sourceLat = parseFloat("{{ sourcelocation.0.Source_lat|floatformat:'6' }}");
+    const sourceLng = parseFloat("{{ sourcelocation.0.Source_lon|floatformat:'6' }}");
+    const sourceCenter = { lat: sourceLat, lng: sourceLng };
+
+    // Initialize the map
+    initializeMap(sourceCenter);
+
+    // Load data from different categories with unique colors
+    const competitors = {{ competitors_json|safe }};
+    const supermarkets = {{ supermarkets_json|safe }};
+    const publicServices = {{ publicservices_json|safe }};
+    const restaurants = {{ restaurants_json|safe }};
+    const retails = {{ retails_json|safe }};
+    const residentials = {{ residentials_json|safe }};
+    const hotels = {{ hotels_json|safe }};
+    const educations = {{ educations_json|safe }};
+    const tourists = {{ tourists_json|safe }};
+    const corporates = {{ corporates_json|safe }};
+
+    // Update summary table counts
+    document.getElementById('competitorsCount').textContent = competitors.length || 0;
+    document.getElementById('publicServicesCount').textContent = publicServices.length || 0;
+    document.getElementById('restaurantsCount').textContent = restaurants.length || 0;
+    document.getElementById('residentialsCount').textContent = residentials.length || 0;
+    document.getElementById('mallsCount').textContent = supermarkets.length || 0;
+    document.getElementById('retailShopsCount').textContent = retails.length || 0;
+    document.getElementById('hotelsCount').textContent = hotels.length || 0;
+    document.getElementById('touristCount').textContent = tourists.length || 0;
+    document.getElementById('educationCount').textContent = educations.length || 0;
+    document.getElementById('corporateCount').textContent = corporates.length || 0;
+
+    // Preload all markers but keep them hidden until toggled on
+    loadMarkers(competitors, 'blue', 'competitors');
+    loadMarkers(supermarkets, 'green', 'supermarkets');
+    loadMarkers(publicServices, 'red', 'publicServices');
+    loadMarkers(restaurants, 'yellow', 'restaurants');
+    loadMarkers(retails, 'purple', 'retails');
+    loadMarkers(residentials, 'white', 'residentials');
+    loadMarkers(educations, 'black', 'educations');
+    loadMarkers(tourists, 'grey', 'tourists');
+    loadMarkers(corporates, 'orange', 'corporates');
+    loadMarkers(hotels, 'white', 'hotels');
+</script>
+
 
 </body>
 </html>
-
-

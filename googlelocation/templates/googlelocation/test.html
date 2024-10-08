@@ -181,6 +181,14 @@
                         <td>Big Retail Shops</td>
                         <td id="retailShopsCount">0</td>
                     </tr>
+                    <tr>
+                        <td>Hotels</td>
+                        <td id="hotelsCount">0</td>
+                    </tr>
+                    <tr>
+                        <td>Educational Institues</td>
+                        <td id="educationCount">0</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -664,7 +672,9 @@
         const restaurants = {{ restaurants_json|safe }};
         const retails = {{ retails_json|safe }};
         const residentials = {{ residentials_json|safe }};
-        
+        const hotels = {{ hotels_json|safe }};
+        const educations = {{ education_json|safe }};
+        const tourist = {{ tourist_json|safe }};
 
         document.getElementById('competitorsCount').textContent = competitors.length;
         document.getElementById('publicServicesCount').textContent = publicServices.length;
@@ -672,6 +682,10 @@
         document.getElementById('residentialsCount').textContent = residentials.length;
         document.getElementById('mallsCount').textContent = supermarkets.length;
         document.getElementById('retailShopsCount').textContent = retails.length;
+        document.getElementById('hotelsCount').textContent = hotels.length;
+        
+
+        
 
         // Preload all markers but keep them hidden until toggled on
         loadMarkers(competitors, 'blue', 'competitors');
@@ -680,7 +694,7 @@
         loadMarkers(restaurants, 'yellow', 'restaurants');
         loadMarkers(retails, 'purple', 'retails');
         loadMarkers(residentials, 'pink', 'residentials');
-        loadMarkers()
+        
     </script>
 
 </body>
