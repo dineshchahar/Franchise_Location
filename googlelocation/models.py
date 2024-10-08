@@ -55,7 +55,21 @@ class PublicServices(models.Model):
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
-class Apartments(models.Model):
+class Hotels(models.Model):
+    name = models.CharField(max_length=255)
+    status= models.CharField(max_length=25,default='default')
+    address = models.CharField(max_length=300)
+    coordinates = models.TextField(max_length=300)
+    types = models.TextField(max_length=500)
+    rating = models.CharField(max_length=10)
+    user_rating = models.CharField(max_length=10)
+    Travel_Distance = models.CharField(max_length=10)
+    Travel_Time = models.CharField(max_length=10)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
+    def __str__(self):
+        return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
+
+class Residentials(models.Model):
     name = models.CharField(max_length=255)
     status= models.CharField(max_length=25,default='default')
     address = models.CharField(max_length=300)
@@ -96,3 +110,29 @@ class Restaurants(models.Model):
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
+class Education(models.Model):
+    name = models.CharField(max_length=255)
+    status= models.CharField(max_length=25,default='default')
+    address = models.CharField(max_length=300)
+    coordinates = models.TextField(max_length=300)
+    types = models.TextField(max_length=500)
+    rating = models.CharField(max_length=10)
+    user_rating = models.CharField(max_length=10)
+    Travel_Distance = models.CharField(max_length=10)
+    Travel_Time = models.CharField(max_length=10)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
+    def __str__(self):
+        return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
+class Tourist(models.Model):
+    name = models.CharField(max_length=255)
+    status= models.CharField(max_length=25,default='default')
+    address = models.CharField(max_length=300)
+    coordinates = models.TextField(max_length=300)
+    types = models.TextField(max_length=500)
+    rating = models.CharField(max_length=10)
+    user_rating = models.CharField(max_length=10)
+    Travel_Distance = models.CharField(max_length=10)
+    Travel_Time = models.CharField(max_length=10)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
+    def __str__(self):
+        return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
