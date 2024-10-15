@@ -21,7 +21,7 @@ class Competitor(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
     
@@ -36,7 +36,7 @@ class SuperMarket(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -51,7 +51,7 @@ class PublicServices(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -65,7 +65,7 @@ class Hotels(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -79,7 +79,7 @@ class Residentials(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 class Retails(models.Model):
@@ -92,7 +92,7 @@ class Retails(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -106,7 +106,7 @@ class Restaurants(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -120,7 +120,7 @@ class Education(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 class Tourist(models.Model):
@@ -133,7 +133,7 @@ class Tourist(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
 
@@ -148,6 +148,6 @@ class Corporate(models.Model):
     user_rating = models.CharField(max_length=10)
     Travel_Distance = models.CharField(max_length=10)
     Travel_Time = models.CharField(max_length=10)
-    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE)
+    source_location = models.ForeignKey(SourceLocation,on_delete=models.CASCADE,null=True,blank=True)
     def __str__(self):
         return f"Name:{self.name},Address:{self.address},Coordinates:{self.coordinates},Types:{self.types},Rating:{self.rating},User_Rating:{self.user_rating},Travel_Distance:{self.Travel_Distance},Travel_Time:{self.Travel_Time}"
