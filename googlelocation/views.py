@@ -76,7 +76,7 @@ def home(request):
              # restaurants Database
             exclude_competitor = {'KFC','Burger King',"McDonald's",'Pizza Hut',"Domino's"}
             nearby_restaurant = []
-            restaurants = ['Restaurant','cafe','Bakery']
+            restaurants = ['Restaurant','cafe','Bakery','food','cuisine']
             for restaurant in restaurants:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = restaurant)
                 if places_result['status'] == 'OK':
@@ -116,7 +116,7 @@ def home(request):
 
             # supermarket database
             nearby_supermarket = []    
-            supermarket = ['Mall','Supermarket','Vishal+Mega+mart','Croma','D-mart','Trends','smart+bazaar','Reliance+Digital','department-store']
+            supermarket = ['Mall','Supermarket','Vishal+Mega+mart','Croma','D-mart','Trends','smart+bazaar','Reliance+Digital','V-mart','hypermarket','hypermart']
 
             for market in supermarket:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = market)
@@ -156,7 +156,7 @@ def home(request):
 
              # retails database
             nearby_retails = [] 
-            retails = ['retail shop','store','eletronic-store','salon'] 
+            retails = ['retail shop','store','eletronic-store','salon','retails'] 
             for retail in retails:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = retail)
                 if places_result['status'] == 'OK':
@@ -197,7 +197,7 @@ def home(request):
 
             
             nearby_tourist = []
-            tourists = ['tourist','park','museum']
+            tourists = ['tourist place','park','museum']
 
             for tourist in tourists:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = tourist)
@@ -238,7 +238,7 @@ def home(request):
             # Education Database
 
             nearby_education = []
-            educations = ['School','Institute','college','University','Inter college','IIT']
+            educations = ['School','Institute','college','University','Inter college','education']
 
             for education in educations:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = education)
@@ -277,7 +277,7 @@ def home(request):
             
             # PublicServices database 
             nearby_publicservices = []  
-            publicservices = ['Bus Stand','Railway station','Metro','transit-station']
+            publicservices = ['Bus Stand','Railway station','Metro','transit-station','gas station']
             
             for public in publicservices:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = public)
@@ -317,7 +317,7 @@ def home(request):
             # corporate database
 
             nearby_corporates = []  
-            corporates = ['Business','corporate','cyber park','cyber hub','IT office','office']
+            corporates = ['Business','corporate','cyber park','cyber hub','IT office','office','Business park']
             
             for corp in corporates:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = corp)
@@ -358,7 +358,7 @@ def home(request):
             
             # Hotels database 
             nearby_hotels = []    
-            hotels = ['lodging','Hotels']
+            hotels = ['lodging','Hotels','hotel']
 
             for hotel in hotels:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = hotel)
@@ -397,7 +397,7 @@ def home(request):
 
             #Residential database
             nearby_residentials = [] 
-            residentials = ['Appartments','Housing Society','Guest House','flats'] 
+            residentials = ['Apartments','Housing Society','flats','Apartment','residency'] 
             for resident in residentials:
                 places_result = gmaps.places_nearby(location = (latitude,longitude),radius = radiuss,keyword = resident)
                 if places_result['status'] == 'OK':
